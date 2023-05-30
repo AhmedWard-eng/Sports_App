@@ -13,7 +13,9 @@ class FavTableViewController: UITableViewController {
     
     var viewModel = FavViewModel(cd: CDManager(appDelegate: UIApplication.shared.delegate as! AppDelegate))
     
-    var leagues : [League]?
+    var leagues : [LeagueDTO]?
+    
+    let reachability = try! Reachability()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -111,23 +113,33 @@ class FavTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let reachability = try! Reachability()
+        
+        
 
         if reachability.connection != .unavailable {
-            let viewController = self.storyboard?.instantiateViewController(withIdentifier: "leagueDetails") as! LDetailsCollectionViewController
-            viewController.sportType = sportType
-            viewController.leagueId = leagues?[indexPath.row].league_key
-            viewController.league = leagues?[indexPath.row]
-    //        navigationController?.pushViewController(viewController, animated: true)
-            
-            
-            
+            if let item = leagues?[indexPath.row]{
+                
+                let viewController = self.storyboard?.instantiateViewController(withIdentifier: "leagueDetails") as! LDetailsCollectionViewController
+                viewController.sportType = item.sportType ?? .football
+                viewController.leagueId = item.league_key
+                viewController.league = convertLeagueDTO_TO_League(leagueDTO: item)
+                //        navigationController?.pushViewController(viewController, animated: true)
+                
+                
+                
                 viewController.modalPresentationStyle = .fullScreen
-                    //        leagueDetails.modalTransitionStyle = .crossDissolve
-                    
-                    present(viewController, animated: true)
+                //        leagueDetails.modalTransitionStyle = .crossDissolve
+                
+                present(viewController, animated: true)
+                
+            }
+            
         } else {
             // Device is not connected to the internet
+            let alert = UIAlertController(title: "Network is Unreachable!!", message: "Please, Check Your Internet Then Try Again", preferredStyle: UIAlertController.Style.actionSheet)
+                        let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
+                        alert.addAction(action)
+                        self.present(alert, animated: true)
         }
     }
     /*

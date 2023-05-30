@@ -37,11 +37,11 @@ class LDetailsViewModel {
         }
     }
     
-    func addToFav(league: League){
+    func addToFav(league: LeagueDTO){
         cdManager.insert(leagueItem: league)
     }
     
-    func removeFromFav(league: League){
+    func removeFromFav(league: LeagueDTO){
         cdManager.removeLeague(leagueData: league)
     }
     

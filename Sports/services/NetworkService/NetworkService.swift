@@ -93,25 +93,7 @@ class NetworkService : NetworkServicesProtocol {
             case .failure(let error):
                 print("Error: \(error)")
             }
-            
-            
         }
-        
     }
 //
-    static func getTeamDetails(sportName: String,teamId: Int , completionHandler: @escaping (TeamsResponse?) -> Void ){
-        
-        AF.request("https://apiv2.allsportsapi.com/\(sportName)/?&met=Teams&teamId=\(teamId)&APIkey=597609427d3b9bfeacc757ea0f97f7f34a1484b8846cdf935644c1630b8cb775", method: .get).responseDecodable(of: TeamsResponse.self) { response in
-            
-            switch response.result {
-            case .success(let data):
-                print("done")
-                completionHandler(data )
-            case .failure(let error):
-                print("Error: \(error)")
-            }
-            
-            
-        }
-    }
 }

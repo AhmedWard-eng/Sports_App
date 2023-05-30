@@ -25,13 +25,14 @@ class CDManager{
     }
     
     
-    func insert(leagueItem: League){
+    func insert(leagueItem: LeagueDTO){
         let league = NSManagedObject(entity: entityLeague!, insertInto: managedContext)
         league.setValue(leagueItem.league_key, forKey: league_key)
         league.setValue(leagueItem.league_name, forKey: league_name)
         league.setValue(leagueItem.league_logo, forKey: league_logo)
         league.setValue(leagueItem.country_key, forKey: country_key)
         league.setValue(leagueItem.country_name, forKey: country_name)
+        league.setValue(leagueItem.sportType?.rawValue, forKey: sports_type)
         
         do{
             try managedContext.save()
@@ -48,12 +49,12 @@ class CDManager{
 //        }
 //    }
 
-    func fetchLeague() -> [League]{
+    func fetchLeague() -> [LeagueDTO]{
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Leagues")
         
         var leagues: [NSManagedObject] = []
-        var leaguesData : [League] = []
+        var leaguesData : [LeagueDTO] = []
         
         do{
             leagues = try managedContext.fetch(fetchRequest)
@@ -62,14 +63,13 @@ class CDManager{
         }
         
         for league in leagues{
-            let leagueData = League()
-            
-            leagueData.league_key = league.value(forKey:league_key) as? Int
-            leagueData.country_name = league.value(forKey: country_name) as? String
-            leagueData.league_name = league.value(forKey: league_name) as? String
-            leagueData.league_logo = league.value(forKey: league_logo) as? String
-            leagueData.country_key = league.value(forKey: country_key) as? Int
-            
+            let leagueData = LeagueDTO(
+                league_key: league.value(forKey:league_key) as? Int,
+                league_name: league.value(forKey: league_name) as? String,
+                league_logo: league.value(forKey: league_logo) as? String,
+                country_key: league.value(forKey: country_key) as? Int,
+                country_name: league.value(forKey: country_name) as? String,
+                sportType: Sports.init(rawValue: league.value(forKey: sports_type) as! String) ?? .football)
             
             leaguesData.append(leagueData)
             
@@ -78,7 +78,7 @@ class CDManager{
     }
 
     
-    func removeLeague(leagueData : League){
+    func removeLeague(leagueData : LeagueDTO){
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Leagues")
         let predict = NSPredicate(format: "league_key == %@", NSNumber(value: leagueData.league_key ?? 0))
         
@@ -119,15 +119,16 @@ class CDManager{
         }
     }
     
-   private func fetchLeague(league_key key : Int) -> [League]{
+   private func fetchLeague(league_key key : Int) -> [LeagueDTO]{
         
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "Leagues")
         
        let predict = NSPredicate(format: "league_key == %@", NSNumber(value: key))
         fetchRequest.predicate = predict
+       
         
         var leagues : [NSManagedObject] = []
-        var leaguesData : [League] = []
+        var leaguesData : [LeagueDTO] = []
         
         do{
             leagues = try managedContext.fetch(fetchRequest)
@@ -135,13 +136,13 @@ class CDManager{
             print(error.localizedDescription)
         }
         for league in leagues{
-            let leagueData = League()
-            
-            leagueData.league_key = league.value(forKey:league_key) as? Int
-            leagueData.country_name = league.value(forKey: country_name) as? String
-            leagueData.league_name = league.value(forKey: league_name) as? String
-            leagueData.league_logo = league.value(forKey: league_logo) as? String
-            leagueData.country_key = league.value(forKey: country_key) as? Int
+            let leagueData = LeagueDTO(
+                league_key: league.value(forKey:league_key) as? Int,
+                league_name: league.value(forKey: league_name) as? String,
+                league_logo: league.value(forKey: league_logo) as? String,
+                country_key: league.value(forKey: country_key) as? Int,
+                country_name: league.value(forKey: country_name) as? String,
+                sportType: Sports.init(rawValue: league.value(forKey: sports_type) as! String) ?? .football)
             
             
             leaguesData.append(leagueData)
@@ -172,3 +173,4 @@ public let league_name = "league_name"
 public let league_logo = "league_logo"
 public let country_key = "country_key"
 public let country_name = "country_name"
+public let sports_type = "sports_type"

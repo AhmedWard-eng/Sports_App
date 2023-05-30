@@ -9,9 +9,9 @@ import Foundation
 
 class FavViewModel{
     
-    var cd : CDManager
+    var cd : DataBaseProtocol
     
-    init(cd: CDManager) {
+    init(cd: DataBaseProtocol) {
         self.cd = cd
     }
     

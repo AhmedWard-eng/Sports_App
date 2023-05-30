@@ -8,7 +8,21 @@
 import Foundation
 import CoreData
 
-class CDManager{
+
+
+protocol DataBaseProtocol {
+    
+    func insert(leagueItem: LeagueDTO)
+
+    func fetchLeague() -> [LeagueDTO]
+    
+    func removeLeague(leagueData : LeagueDTO)
+    
+    func removeAll()
+    
+    func isExistedInFav(league_key: Int) -> Bool
+}
+class CDManager :DataBaseProtocol{
     private let appDelegate : AppDelegate
     private var managedContext : NSManagedObjectContext!
     
@@ -39,15 +53,10 @@ class CDManager{
         }catch let error as NSError{
             print(error.localizedDescription)
         }
-//        releaseYear rating image genre
     }
     
     
-//    func insert(listMovies : [Item]){
-//        for movie in listMovies{
-//            insert(movie: movie)
-//        }
-//    }
+
 
     func fetchLeague() -> [LeagueDTO]{
         

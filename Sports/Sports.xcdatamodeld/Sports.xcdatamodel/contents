@@ -6,5 +6,6 @@
         <attribute name="league_key" optional="YES" attributeType="Integer 64" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="league_logo" optional="YES" attributeType="String"/>
         <attribute name="league_name" optional="YES" attributeType="String"/>
+        <attribute name="sports_type" optional="YES" attributeType="String"/>
     </entity>
 </model>

@@ -366,13 +366,6 @@
                                                         <constraint firstAttribute="width" constant="100" id="uIx-eY-ce2"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Hp-k8-9dm">
-                                                    <rect key="frame" x="248.66666666666663" y="24" width="100" height="100"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="kUX-fO-EPA"/>
-                                                        <constraint firstAttribute="height" constant="100" id="sEr-nl-LVs"/>
-                                                    </constraints>
-                                                </imageView>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="9mw-ao-VbS">
                                                     <rect key="frame" x="150.33333333333334" y="48.666666666666657" width="56" height="51"/>
                                                     <color key="tintColor" systemColor="systemRedColor"/>
@@ -405,6 +398,13 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5Hp-k8-9dm">
+                                                    <rect key="frame" x="248" y="24" width="100" height="100"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="100" id="kUX-fO-EPA"/>
+                                                        <constraint firstAttribute="height" constant="100" id="sEr-nl-LVs"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="5R4-MY-AY1" firstAttribute="top" secondItem="YjZ-ft-Mwl" secondAttribute="top" constant="24" id="3C1-wP-ear"/>

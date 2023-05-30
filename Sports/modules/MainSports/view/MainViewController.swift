@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import Reachability
 
 class Sport{
     var title : String
@@ -30,7 +30,7 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
         Sport(title: "Cricket", image: "cricket",sportType: Sports.cricket)
     ]
     
-
+    let reachability = try! Reachability()
     
     
 
@@ -108,14 +108,23 @@ class MainViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let viewController = self.storyboard?.instantiateViewController(withIdentifier: "league") as! LeagueTableViewController
-        viewController.sportType = list[indexPath.row].sportType
-        navigationController?.pushViewController(viewController, animated: true)
+        
+        if reachability.connection != .unavailable {
+            let viewController = self.storyboard?.instantiateViewController(withIdentifier: "league") as! LeagueTableViewController
+            viewController.sportType = list[indexPath.row].sportType
+            navigationController?.pushViewController(viewController, animated: true)
+            
+        }else{
+            let alert = UIAlertController(title: "Network is Unreachable!!", message: "Please, Check Your Internet Then Try Again", preferredStyle: UIAlertController.Style.actionSheet)
+                        let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default)
+                        alert.addAction(action)
+                        self.present(alert, animated: true)
+        }
     }
     
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
+ 
             if let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "header", for: indexPath) as? SportsHeader{
                 
                 sectionHeader.header.text = "Sports"

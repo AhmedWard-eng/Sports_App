@@ -27,10 +27,10 @@ class LDetailsCollectionViewController: UIViewController,UICollectionViewDelegat
     
     @IBAction func addToFav(_ sender: Any) {
         if viewModel.isExistedInFav (league_key: leagueId){
-            viewModel.removeFromFav(league: league)
+            viewModel.removeFromFav(league: convertLeague_TO_LeagueDTO(league: league, sportType: sportType))
             favButton.image = UIImage(systemName: "heart")
         }else{
-            viewModel.addToFav(league: league)
+            viewModel.addToFav(league: convertLeague_TO_LeagueDTO(league: league, sportType: sportType))
             
             favButton.image =  UIImage(systemName: "heart.fill")
         }

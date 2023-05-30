@@ -15,7 +15,7 @@ class FavViewModel{
         self.cd = cd
     }
     
-    func getLeagues() -> [League]{
+    func getLeagues() -> [LeagueDTO]{
         return cd.fetchLeague()
     }
 }

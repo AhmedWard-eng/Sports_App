@@ -15,6 +15,4 @@ protocol NetworkServicesProtocol : FetchLeaguesProtocol, FetchUpComingEventsProt
     static func getLatestEvents(sportName: String ,leagueId: Int , completionHandler: @escaping (LatestEventResponse?) -> Void )
     
     static func getTeams(sportName: String ,leagueId: Int , completionHandler: @escaping (TeamsResponse?) -> Void )
-    
-    static func getTeamDetails(sportName: String,teamId: Int , completionHandler: @escaping (TeamsResponse?) -> Void )
 }
